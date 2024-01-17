@@ -11,6 +11,6 @@ class Entrada extends Model
 
     public function Proyeccion()
     {
-        $this->belongsTo(proyeccion::class);
+        return $this->belongsTo(Proyeccion::class);
     }
 }

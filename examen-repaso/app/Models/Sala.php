@@ -11,6 +11,6 @@ class Sala extends Model
 
     public function Proyecciones()
     {
-        $this->hasMany(proyeccion::class);
+        return $this->hasMany(Proyeccion::class);
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pelicula;
 use Illuminate\Http\Request;
+use Spatie\LaravelIgnition\Recorders\DumpRecorder\Dump;
 
 class PeliculaController extends Controller
 {
@@ -12,7 +13,7 @@ class PeliculaController extends Controller
      */
     public function index()
     {
-        //
+        return view('peliculas.index', ['peliculas' => Pelicula::all()]);
     }
 
     /**
@@ -20,7 +21,7 @@ class PeliculaController extends Controller
      */
     public function create()
     {
-        //
+        return view('peliculas.create');
     }
 
     /**
@@ -28,7 +29,8 @@ class PeliculaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Pelicula::create(['titulo' => $request->titulo]);
+        return redirect()->route('peliculas.index');
     }
 
     /**
@@ -36,7 +38,12 @@ class PeliculaController extends Controller
      */
     public function show(Pelicula $pelicula)
     {
-        //
+        $total_entrada = $pelicula->proyecciones->flatMap->entradas->count();
+        /*$proyecciones = $pelicula->proyecciones;
+        foreach ($proyecciones as $proyeccion) {
+            $total_entrada += $proyeccion->entradas->count();
+        }*/
+        return view('peliculas.show', ['pelicula'=>$pelicula, 'entradas'=>$total_entrada] );
     }
 
     /**
@@ -44,7 +51,7 @@ class PeliculaController extends Controller
      */
     public function edit(Pelicula $pelicula)
     {
-        //
+        return view('peliculas.edit', ['pelicula' => $pelicula]);
     }
 
     /**
@@ -52,7 +59,8 @@ class PeliculaController extends Controller
      */
     public function update(Request $request, Pelicula $pelicula)
     {
-        //
+        $pelicula->update(['titulo' => $request->titulo]);
+        return redirect()->route('peliculas.index');
     }
 
     /**
@@ -60,6 +68,7 @@ class PeliculaController extends Controller
      */
     public function destroy(Pelicula $pelicula)
     {
-        //
+        Pelicula::destroy($pelicula->id);
+        return redirect()->route('peliculas.index');
     }
 }

@@ -9,18 +9,20 @@ class Proyeccion extends Model
 {
     use HasFactory;
 
+    protected $table= 'proyecciones';
+
     public function pelicula()
     {
-        $this->belongsTo(pelicula::class);
+        return $this->belongsTo(Pelicula::class);
     }
 
     public function sala()
     {
-        $this->belongsTo(sala::class);
+        return $this->belongsTo(Sala::class);
     }
 
-    public function entrada()
+    public function entradas()
     {
-        $this->hasMany(entrada::class);
+        return $this->hasMany(Entrada::class);
     }
 }
