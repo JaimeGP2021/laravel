@@ -59,7 +59,10 @@ class PeliculaController extends Controller
      */
     public function update(Request $request, Pelicula $pelicula)
     {
-        $pelicula->update(['titulo' => $request->titulo]);
+        $total_entrada = $pelicula->proyecciones->flatMap->entradas->count();
+        if (!$total_entrada){
+            $pelicula->update(['titulo' => $request->titulo]);
+        }
         return redirect()->route('peliculas.index');
     }
 
@@ -68,7 +71,10 @@ class PeliculaController extends Controller
      */
     public function destroy(Pelicula $pelicula)
     {
-        Pelicula::destroy($pelicula->id);
+        $total_entrada = $pelicula->proyecciones->flatMap->entradas->count();
+        if (!$total_entrada){
+            Pelicula::destroy($pelicula->id);
+        }
         return redirect()->route('peliculas.index');
     }
 }
