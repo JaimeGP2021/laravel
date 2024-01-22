@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Pelicula extends Model
 {
     use HasFactory;
+
+    protected $fillable=['titulo'];
+
+    public function proyecciones()
+    {
+        return $this->hasMany((Proyeccion::class));
+    }
 }
