@@ -20,7 +20,12 @@
             <tr>
                 <td>{{ $alumno->nombre }}</td>
                 <td><button><a href="{{ route('alumnos.show', $alumno) }}">Detalles</a></button></td>
-                <td></td>
+                <td>
+                    <form action="{{ route('alumnos.edit', $alumno) }}" method="get">
+                        @csrf
+                        <button type="submit">Editar</button>
+                    </form>
+                </td>
                 <td><form action="{{ route('alumnos.destroy', $alumno) }}" method="post">
                     @csrf
                     @method('Delete')
