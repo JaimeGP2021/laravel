@@ -65,4 +65,10 @@ class AlumnoController extends Controller
         Alumno::destroy($alumno->id);
         return redirect()->route('alumnos.index');
     }
+
+    public function criterios(Alumno $alumno)
+    {
+        $notas=$alumno->notas;
+        return view('alumnos.criterios', ['alumno'=>$alumno, 'notas'=>$notas]);
+    }
 }

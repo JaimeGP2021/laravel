@@ -31,4 +31,6 @@ Route::middleware('auth')->group(function () {
 
 Route::resource('/alumnos', AlumnoController::class);
 
+Route::get('/alumnos/criterios/{alumno}', [AlumnoController::class, 'criterios']);
+
 require __DIR__.'/auth.php';
