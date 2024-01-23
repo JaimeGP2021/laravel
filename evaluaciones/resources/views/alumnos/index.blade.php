@@ -15,6 +15,7 @@
             <th>Detalles</th>
             <th>Editar</th>
             <th>Borrar</th>
+            <th>Nota</th>
         </tr>
         @foreach ($alumnos as $alumno)
             <tr>
@@ -26,11 +27,28 @@
                         <button type="submit">Editar</button>
                     </form>
                 </td>
-                <td><form action="{{ route('alumnos.destroy', $alumno) }}" method="post">
-                    @csrf
-                    @method('Delete')
-                    <button type="submit">Borrar</button>
-                </form></td>
+                <td>
+                    <form action="{{ route('alumnos.destroy', $alumno) }}" method="post">
+                        @csrf
+                        @method('Delete')
+                        <button type="submit">Borrar</button>
+                    </form>
+                </td>
+                <td>
+                    @php
+                        $acc = 0;
+                        $total = 0;
+                        foreach ($alumno->notas as $notas) {
+                            $acc++;
+                            $total = $notas->nota;
+                        }
+                        if ($acc) {
+                            echo ($total / $acc);
+                        } else {
+                            echo (0);
+                        }
+                    @endphp
+                </td>
             </tr>
         @endforeach
     </table>
